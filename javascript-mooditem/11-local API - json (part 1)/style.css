@@ -1,0 +1,112 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: varela;
+  background: #282a36;
+  color: #fff;
+}
+
+@font-face {
+  font-family: "varela";
+  src: url("./assets/varela-round.ttf");
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style-type: none;
+}
+
+button,
+input {
+  font-family: varela;
+}
+
+/* HEADER */
+.header {
+  width: 100%;
+  text-align: center;
+  padding: 0.6rem 0;
+  background: #24c4d3;
+}
+
+.header .header-title {
+  color: #fff;
+}
+
+.content-container {
+  margin-top: 5rem;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+@media screen and (min-width: 1200px) {
+  .content-container {
+    margin-top: 10rem;
+  }
+}
+
+.content-container .content-item {
+  background: #fff;
+  color: #333;
+  padding: 0.7rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  min-width: 200px;
+  max-width: 400px;
+}
+
+.content-container .content-item .image-box {
+  position: relative;
+  height: 200px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.content-container .content-item .image-box .image {
+  width: 100%;
+  height: 100%;
+}
+
+.content-container .content-item .image-box .description-box {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.6);
+  inset: 0;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s;
+  padding: 0.4rem;
+  transform: scale(0) rotate(180deg);
+}
+
+.content-container .content-item .image-box .description-text {
+  text-align: center;
+  line-height: 1.5rem;
+}
+
+/* show description in hover */
+.content-container .content-item .image-box:hover .description-box {
+  transform: scale(1) rotate(0);
+}
+
+.content-container .content-item .name {
+  margin-top: 0.6rem;
+}
+
+/* FOOTER */
+footer {
+  padding: 1rem;
+  text-align: center;
+}

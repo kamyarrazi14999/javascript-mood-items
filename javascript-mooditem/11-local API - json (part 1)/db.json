@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "name": "Room Image",
+        "url": "./assets/image-1.jpg",
+        "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo, atque."
+    },
+    {
+        "id": 2,
+        "name": "Nature Image",
+        "url": "./assets/image-2.jpg",
+        "description": " sit amet consectetur adipisicing elit. Quo, atque."
+    },
+    {
+        "id": 3,
+        "name": "Car Image",
+        "url": "./assets/image-3.jpg",
+        "description": " sit amet consectetur adipisicing elit. Quo, atque. sit amet consectetur adipisicing elit. Quo, atque."
+    }
+]

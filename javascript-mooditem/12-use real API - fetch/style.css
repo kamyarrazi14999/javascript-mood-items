@@ -1,0 +1,142 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: varela;
+  background: #eee;
+}
+
+@font-face {
+  font-family: varela;
+  src: url("./assets/fonts/varela-round.ttf");
+}
+
+button,
+input {
+  font-family: varela;
+}
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* HEADER */
+
+.header {
+  text-align: center;
+  padding: 0.6rem 0;
+  background: #24c4d3;
+}
+
+.header .header-title {
+  color: #fff;
+}
+
+.condition-wrapper {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* loading */
+.condition-wrapper .loading-element img {
+  width: 100px;
+}
+
+/* error */
+.condition-wrapper .error-element {
+  color: #dd3737;
+}
+/* PRODUCTS LIST */
+
+.products-list-container .products-list {
+  display: flex; /* استفاده از flexbox برای چیدن محصولات */
+  flex-wrap: wrap; /* این خاصیت باعث می‌شود که محصولات در یک خط چیده شوند */
+  justify-content: center; /* محصولات در وسط قرار می‌گیرند */
+}
+
+.products-list-container .product-item {
+  width: 22%; /* اندازه عرض محصولات */
+  padding: 1rem 1rem; /* فاصله داخلی محصولات */
+  margin: 1rem 1rem; /* فاصله خارجی محصولات */
+  background: #fff; /* رنگ پس‌زمینه محصولات */
+  border-radius: 5px; /* گوشه‌های محصولات با اندازه 5 پیکسلی */
+  box-shadow: 2px -2px 10px rgba(0, 0, 0, 0.2); /* اندازه و ظاهر چرکش محصولات */
+}
+
+/* قوانین CSS برای تغییر اندازه محصولات برای انواع اندازه‌های صفحه */
+
+@media screen and (max-width: 1111px) {
+  .products-list-container .product-item {
+    width: 30%; /* اندازه عرض محصولات در صفحه‌های با اندازه بیشتر از 1111 پیکسل */
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .products-list-container .product-item {
+    margin: 1rem 0.5rem; /* فاصله خارجی محصولات در صفحه‌های با اندازه بیشتر از 960 پیکسل */
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .products-list-container .product-item {
+    width: 45%; /* اندازه عرض محصولات در صفحه‌های با اندازه بیشتر از 800 پیکسل */
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .products-list-container .product-item {
+    width: 90%; /* اندازه عرض محصولات در صفحه‌های با اندازه بیشتر از 610 پیکسل */
+  }
+}
+
+.products-list-container .product-item .product-img {
+  width: 100%; /* اندازه عرض تصویر محصولات */
+  height: 300px; /* اندازه تصویر محصولات */
+  object-fit: contain; /* تنظیم اندازه تصویر برای نگه داشتن آن در محدوده‌هایش */
+  margin-bottom: 1rem; /* فاصله پایین تصویر محصولات */
+}
+
+.products-list-container .product-item .product-details-box {
+  display: flex; /* استفاده از flexbox برای چیدن جزئیات محصولات */
+  align-items: center; /* چیدن جزئیات محصولات در وسط */
+  justify-content: space-between; /* فاصله بین جزئیات محصولات */
+  margin-top: 1rem; /* فاصله بالای جزئیات محصولات */
+  padding-top: 1rem; /* فاصله بالای جزئیات محصولات */
+  border-top: 1px solid #bfbfbf; /* اندازه و رنگ خط بالای جزئیات محصولات */
+}
+
+.products-list-container .product-item .product-details-box .product-btn {
+  padding: 0.4rem 1.3rem; /* فاصله داخلی دکمه محصولات */
+  border-radius: 20px; /* گوشه‌های دکمه محصولات با اندازه 20 پیکسلی */
+  border: none; /* حذف خط کاندار دکمه محصولات */
+  box-shadow: 2px -2px 6px rgba(0, 0, 0, 0.2); /* اندازه و ظاهر چرکش دکمه محصولات */
+  font-size: 1.1rem; /* اندازه فونت دکمه محصولات */
+  background: #4394ca; /* رنگ پس‌زمینه دکمه محصولات */
+  color: #fff; /* رنگ متن دکمه محصولات */
+  transition: all 0.3s; /* تغییر آنیمیشن با اندازه 0.3 ثانیه برای دکمه محصولات */
+}
+
+.products-list-container .product-item .product-details-box .product-btn:hover {
+  background: #3679a7; /* رنگ پس‌زمینه دکمه محصولات در حالت hover */
+}
+
+.products-list-container .product-item .product-details-box .product-price {
+  color: #4394ca; /* رنگ متن قیمت محصولات */
+  font-weight: bold; /* قلاب قیمت محصولات */
+  font-size: 1.1rem; /* اندازه فونت قیمت محصولات */
+}
+
+/* FOOTER */
+footer {
+  padding: 1rem;
+  text-align: center;
+}
