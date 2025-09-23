@@ -26,11 +26,11 @@ const getProducts = async () => {
     const data = await response.json();
 
     conditionText.style.display = "none"; // Hide Loading When Data Arrived
-   
+    productList.classList.add("full-list");
     renderPorducts(data); // Show Products
   } catch (error) {
     conditionText.textContent = error.message;
-    
+    productList.classList.remove("full-list");
   }
 };
 
@@ -42,7 +42,7 @@ const renderPorducts = (products) => {
     productElement.className = "product";
 
     // destructure product info
-    
+    const { image, title, price, description } = product;
 
     productElement.innerHTML = `
     <div class="product-img-wrapper">
@@ -71,7 +71,19 @@ const renderPorducts = (products) => {
 };
 
 // short products title
+const shortenTitle = (text) => {
+  const splitedTitle = text.split(" ");
 
+  let newTitle = null;
+
+  if (splitedTitle[1] === "-") {
+    newTitle = `${splitedTitle[0]} ${splitedTitle[1]} ${splitedTitle[2]}`;
+  } else {
+    newTitle = `${splitedTitle[0]} ${splitedTitle[1]}`;
+  }
+
+  return newTitle;
+};
 
 // Start Initialy Project
 getProducts();
