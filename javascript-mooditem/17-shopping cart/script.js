@@ -43,7 +43,7 @@ const renderPorducts = (products) => {
     productElement.className = "product";
 
     // destructure product info
-    const { image, title, price, description } = product;
+    const {id, image, title, price, description } = product;
 
     productElement.innerHTML = `
     <div class="product-img-wrapper">
@@ -62,10 +62,15 @@ const renderPorducts = (products) => {
     <div class="product-info-box">
       <p class="product-price">$${price}</p>
       <div>
-        <button class="add-to-cart-btn">Add to Cart</button>
+        <button class="add-to-cart-btn" data-id="${id}">Add to Cart</button>
       </div>
     </div>
     `;
+    // Add event to add product to cart
+    const addToCartBtn = productElement.querySelector(".add-to-cart-btn");
+    addToCartBtn.addEventListener("click", () => {
+   const productId = addToCartBtn.getAttribute("data-id");
+    });
 
     productList.appendChild(productElement);
   });
@@ -76,9 +81,9 @@ const shortenTitle = (title) => {
   const splitedTitle = title.split(" ");
   let newTitle = null;
   if (splitedTitle[1] === "-") {
-    newTitle = splitedTitle[0];
+    newTitle =` ${splitedTitle[0]}  ${splitedTitle[1]} ${splitedTitle[2]}`;
   } else {
-    newTitle = `${splitedTitle[0]} ${splitedTitle[1]}`;
+    newTitle = `${splitedTitle[0]} ${splitedTitle[1]} `;
   }
   return newTitle;
 }
