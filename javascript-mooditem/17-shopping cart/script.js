@@ -66,12 +66,19 @@ const renderPorducts = (products) => {
       </div>
     </div>
     `;
-    // Add event to add product to cart
+    // Add event to add product to cart function and get product id
     const addToCartBtn = productElement.querySelector(".add-to-cart-btn");
     addToCartBtn.addEventListener("click", () => {
-   const productId = addToCartBtn.getAttribute("data-id");
+      // get product id
+      const productId = parseInt(addToCartBtn.getAttribute("data-id")
+      );
+      // method to find product by id
+      const selectedProduct = products.find(product => {
+        return product.id === productId;
+      });
+        addtocart(selectedProduct);
     });
-
+    // append product element to product list
     productList.appendChild(productElement);
   });
 };
