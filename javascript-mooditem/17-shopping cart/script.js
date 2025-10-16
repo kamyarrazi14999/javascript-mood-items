@@ -5,7 +5,7 @@ const cartContainer = document.querySelector(".cart-container");
 const headerLink = document.querySelector(".header-link");
 const conditionText = document.querySelector(".condition-text");
 const productList = document.getElementById("product-list");
-
+let cartData = [];
 // Show basket cart
 cartButton.addEventListener("click", () => {
   productContainer.classList.remove("show-section");
@@ -82,7 +82,17 @@ const renderPorducts = (products) => {
     productList.appendChild(productElement);
   });
 };
-
+// Add product to cart function
+const addtocart = (product) => { 
+  cartData.push(product);
+  saveproductlocalstorage();
+  
+  
+}
+// Save product to local storage function
+const saveproductlocalstorage = () => {
+  localStorage.setItem("cart", JSON.stringify(cartData));
+}
 // short products title
 const shortenTitle = (title) => {
   const splitedTitle = title.split(" ");
