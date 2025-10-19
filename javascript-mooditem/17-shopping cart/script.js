@@ -84,11 +84,30 @@ const renderPorducts = (products) => {
 };
 // Add product to cart function
 const addtocart = (product) => { 
-  cartData.push(product);
+  const cartItem = cartData.find(item => item.id === product.id);
+  if (cartItem === undefined) {
+    // spread operater to copy product object and add quantity property
+    cartData.push({ ...product, quantity: 1 });
+   
+  }
+  else {
+    // quantity items already
+    cartItem.quantity++;
+   }
+  
+
   saveproductlocalstorage();
   
+  renderCart();
   
 }
+// Render cart items function
+const renderCart = () => {
+  cartData.map((item) => {
+
+  
+  })
+};
 // Save product to local storage function
 const saveproductlocalstorage = () => {
   localStorage.setItem("cart", JSON.stringify(cartData));
