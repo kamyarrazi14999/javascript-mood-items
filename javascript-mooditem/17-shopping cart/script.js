@@ -125,8 +125,8 @@ const renderCart = () => {
             <td>
               <h3 class='cart-name'>${shortenTitle(title)}</h3>
             </td>
-
-            <td>
+                // to fixed price decimal number
+            <td>  
               <p class='cart-price'>$${price.toFixed(2)}</p>
             </td>
 
@@ -160,7 +160,9 @@ const renderCart = () => {
       <h3 class='empty-cart-text'>Shopping Cart is empty!</h3>
       <a href='#' class='back-to-shop-link'>Back To Shop</a>
     </div>
-  `;
+    `;
+    checkoutBox.classList.remove("show-checkout-box");
+    
 
     // back to shop
     const backToShopLink = cartTable.querySelector(".back-to-shop-link");
