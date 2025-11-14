@@ -125,7 +125,7 @@ const renderCart = () => {
             <td>
               <h3 class='cart-name'>${shortenTitle(title)}</h3>
             </td>
-                // to fixed price decimal number
+               
             <td>  
               <p class='cart-price'>$${price.toFixed(2)}</p>
             </td>
@@ -150,10 +150,15 @@ const renderCart = () => {
                 </button>
             </td>
     `;
+      // 
+      const increaseBtn = cartElement.querySelector(".increase-btn");
+      const decreaseBtn = cartElement.querySelector(".decrease-btn");
+      increaseBtn.addEventListener("click", () => {
+        increaseQuantity(item);
+      });
       cartTable.appendChild(cartElement);
     });
 
-    checkoutBox.classList.add("show-checkout-box");
   } else {
     cartTable.innerHTML = `
     <div>
@@ -161,8 +166,9 @@ const renderCart = () => {
       <a href='#' class='back-to-shop-link'>Back To Shop</a>
     </div>
     `;
-    checkoutBox.classList.remove("show-checkout-box");
     
+    
+
 
     // back to shop
     const backToShopLink = cartTable.querySelector(".back-to-shop-link");
@@ -174,16 +180,24 @@ const renderCart = () => {
     // hide checkout box when cart data is empty
     checkoutBox.classList.remove("show-checkout-box");
   }
-
+//
   const totalPrice = cartData.reduce((total, item) => {
+    // calculate total price
     return total + item.quantity * item.price;
   }, 0);
-
+// 
   cartTotal.textContent = totalPrice.toLocaleString();
 
   quantityText.textContent = cartData.length;
 };
-
+// function to increase product quantity
+increaseQuantity = (item) => {
+  const cartItem = cartData.find((product) => product.id === item.id);
+  if(cartItem){
+    cartItem.quantity++;
+    renderCart();
+  }
+}
 // function to save cart products in local storage
 const saveProductIntoLocalStorage = () => {
   localStorage.setItem("cart", JSON.stringify(cartData));
