@@ -150,12 +150,26 @@ const renderCart = () => {
                 </button>
             </td>
     `;
-      // 
+      // evnent listeners for increase & decrease buttons and remove button
       const increaseBtn = cartElement.querySelector(".increase-btn");
       const decreaseBtn = cartElement.querySelector(".decrease-btn");
+      const removeBtn = cartElement.querySelector(".remove-btn");
+      // increase & decrease quantity
       increaseBtn.addEventListener("click", () => {
         increaseQuantity(item);
       });
+      // decrease quantity
+      decreaseBtn.addEventListener("click", () => {
+        decreaseQuantity(item);
+      });
+      // remove product from cart
+      removeBtn.addEventListener("click", () => { 
+        removeProductFromCart(item);
+      });
+
+      
+      
+    
       cartTable.appendChild(cartElement);
     });
 
@@ -196,6 +210,26 @@ increaseQuantity = (item) => {
   if(cartItem){
     cartItem.quantity++;
     renderCart();
+    saveProductIntoLocalStorage();
+  }
+ 
+}
+
+// function to remove product from cart
+removeProductFromCart = (item) => {
+  cartData = cartData.filter((product) => product.id !== item.id);
+  renderCart();
+  saveProductIntoLocalStorage();
+}
+
+// function to decrease product quantity
+decreaseQuantity = (item) => {
+  const cartItem = cartData.find((product) => product.id === item.id);
+  if(cartItem && cartItem.quantity > 1){
+    cartItem.quantity--;
+    renderCart();
+    saveProductIntoLocalStorage();
+    
   }
 }
 // function to save cart products in local storage
