@@ -218,6 +218,7 @@ increaseQuantity = (item) => {
 // function to remove product from cart
 removeProductFromCart = (item) => {
   const index = cartData.findIndex((product) => product.id === item.id);
+  // item splice for better performance than filter & map
   if (index !== -1) {
     cartData.splice(index, 1);
   renderCart();
