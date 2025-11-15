@@ -217,9 +217,12 @@ increaseQuantity = (item) => {
 
 // function to remove product from cart
 removeProductFromCart = (item) => {
-  cartData = cartData.filter((product) => product.id !== item.id);
+  const index = cartData.findIndex((product) => product.id === item.id);
+  if (index !== -1) {
+    cartData.splice(index, 1);
   renderCart();
-  saveProductIntoLocalStorage();
+    saveProductIntoLocalStorage();
+  }
 }
 
 // function to decrease product quantity
