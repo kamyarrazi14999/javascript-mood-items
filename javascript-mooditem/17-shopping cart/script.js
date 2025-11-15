@@ -9,6 +9,8 @@ const cartTable = document.getElementById("cart-table");
 const checkoutBox = document.querySelector(".checkout-box");
 const quantityText = document.querySelector(".quantity-text");
 const cartTotal = document.getElementById("cart-total");
+const clearAllButton = document.getElementById("clear-all-btn");
+const checkoutButton = document.getElementById("checkout-btn");
 
 let cartData = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -214,6 +216,32 @@ increaseQuantity = (item) => {
   }
  
 }
+
+
+
+// clear basket cart when click clear all button
+clearAllButton.addEventListener("click", () => {
+  swal.fire({
+    title: 'Are you sure to clear your cart?',
+    showDenyButton: true,
+    confirmButtonText: 'Clear',
+    denyButtunText: 'Cancel',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      cartData = [];
+      saveProductIntoLocalStorage();
+      renderCart(); 
+    }
+    });
+});
+// checkout basket cart when click checkout button
+checkoutButton.addEventListener("click", () => {
+  
+ });
+    
+   
+
+
 
 // function to remove product from cart
 removeProductFromCart = (item) => {
