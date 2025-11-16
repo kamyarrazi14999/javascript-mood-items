@@ -236,8 +236,20 @@ clearAllButton.addEventListener("click", () => {
 });
 // checkout basket cart when click checkout button
 checkoutButton.addEventListener("click", () => {
-  
- });
+  swal.fire({
+    title: 'checkout successful Done!',
+    position: "center",
+    icon: 'success',
+    showconfirmButton: false,
+    timer: 3000,
+  }).then(() => {
+    cartData = [];
+    saveProductIntoLocalStorage();
+    renderCart(); 
+  });
+});
+
+ 
     
    
 
