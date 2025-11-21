@@ -12,7 +12,8 @@ const cartTotal = document.getElementById("cart-total");
 const clearAllButton = document.getElementById("clear-all-btn");
 const checkoutButton = document.getElementById("checkout-btn");
 const categoryButtonsParent = document.getElementById("category-buttons");
-
+const categoryButtons = document.querySelector(".category-buttons-wrapper");
+const serchingInput = document.getElementById("search-input");
 let cartData = JSON.parse(localStorage.getItem("cart")) || [];
 
 // Show basket cart
@@ -37,6 +38,7 @@ const getProducts = async () => {
     conditionText.style.display = "none"; // Hide Loading When Data Arrived
     productList.classList.add("full-list");
     renderPorducts(data); // Show Products
+    categoryButtons.style.display = "block"; // Show Category Buttons
 
     // Get all products category to create its category buttons
     const categories = data.reduce(
@@ -144,7 +146,7 @@ const searchProductByCategory = async (btn) => {
   const filteredProducts = data.filter((item) => {
     return item.category === category;
   });
-
+// show all products when click to all button
   if (category === "all") {
     getProducts();
   } else {
@@ -155,6 +157,7 @@ const searchProductByCategory = async (btn) => {
 // function to upper case first letter of product name
 const capitalizeFirstLetter = (productName) => {
   const firstLetter = productName.charAt(0).toUpperCase();
+  // get product name without first letter 
   const newProductName = `${firstLetter}${productName.slice(1)}`;
 
   return newProductName;
@@ -334,6 +337,18 @@ checkoutButton.addEventListener("click", () => {
   renderCart();
   saveCartToLocalStorage();
 });
+//filter products by searching input
+serchingInput.addEventListener("input", async (e) => {
+  const value = e.target.value;
+
+   const response = await fetch("https://fakestoreapi.com/products");
+  const data = await response.json();
+  const searchProducts = data.filter((product) => {
+    return shortenTitle(product.title).includes(value  );
+  });
+  console.log(searchProducts);
+  
+  }) 
 
 // function to save cart products in local storage
 const saveProductIntoLocalStorage = () => {
