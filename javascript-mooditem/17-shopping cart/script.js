@@ -344,10 +344,9 @@ serchingInput.addEventListener("input", async (e) => {
    const response = await fetch("https://fakestoreapi.com/products");
   const data = await response.json();
   const searchProducts = data.filter((product) => {
-    return shortenTitle(product.title).includes(value  );
+    return shortenTitle(product.title).toLowerCase().includes(value.toLowerCase().trim());
   });
-  console.log(searchProducts);
-  
+  renderPorducts(searchProducts);
   }) 
 
 // function to save cart products in local storage
