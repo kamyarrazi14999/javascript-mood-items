@@ -108,6 +108,16 @@ const renderPorducts = (products) => {
 
     productList.appendChild(productElement);
   });
+  if (products.length === 0) {
+
+    conditionText.style.display = "block";
+    conditionText.innerHTML = "No products found!";
+    productList.classList.remove("full-list");
+  }else{
+    conditionText.style.display = "none";
+    conditionText.innerHTML = "";
+    productList.classList.add("full-list");
+  }
 };
 
 const renderCategoryButtons = (categories) => {
@@ -152,6 +162,8 @@ const searchProductByCategory = async (btn) => {
   } else {
     renderPorducts(filteredProducts);
   }
+  // emty searching input value
+  serchingInput.value = "";
 };
 
 // function to upper case first letter of product name
@@ -341,13 +353,23 @@ checkoutButton.addEventListener("click", () => {
 serchingInput.addEventListener("input", async (e) => {
   const value = e.target.value;
 
-   const response = await fetch("https://fakestoreapi.com/products");
+  const searchProducts  = await searchproductsBysearch(value);
+if(cartContainer.classList .contains("show-section")){
+  headerLink.click();
+}
+ 
+  renderPorducts(searchProducts);
+});
+// Get searched products from api
+const searchproductsBysearch = async (value) => {
+  const response = await fetch("https://fakestoreapi.com/products");
   const data = await response.json();
   const searchProducts = data.filter((product) => {
     return shortenTitle(product.title).toLowerCase().includes(value.toLowerCase().trim());
   });
-  renderPorducts(searchProducts);
-  }) 
+  return searchProducts;
+};
+  
 
 // function to save cart products in local storage
 const saveProductIntoLocalStorage = () => {
