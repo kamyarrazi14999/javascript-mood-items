@@ -1,0 +1,559 @@
+/* =========================
+   تنظیمات سراسری و متغیرهای تم
+   - استفاده از CSS variables برای امکانِ تغییر سریع تم
+   ========================= */
+:root {
+  --bg: #000033;
+  --bg-2: #000022;
+  --card: #330066;
+  --muted: #a8bbbf;
+  --accent: #ffcc00;
+  --text: #ffffff;
+  --glass: rgba(255, 255, 255, 0.04);
+  --radius: 12px;
+  --gap: 1rem;
+  --shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+  --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* سفارشی‌سازی اسکرول‌بار (WebKit) — از متغیرهای تم استفاده می‌شود */
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--muted);
+  border-radius: 20px;
+  border: 4px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #96aeb3;
+}
+
+/* =========================
+   بدنه صفحه: تایپوگرافی پایه و پس‌زمینهٔ صفحۀ اصلی
+   ========================= */
+body {
+  font-family: varela, sahel, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+/* کانتینر مرکزی برای قرار دادن محتوا */
+.container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;
+}
+
+/* =========================
+   بارگذاری فونت‌های محلی پروژه
+   - font-display: swap برای بهتر شدن UX هنگام لود فونت
+   ========================= */
+@font-face {
+  font-family: "varela";
+  src: url("./assets/varela-round.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: "sahel";
+  src: url("./assets/sahel.ttf");
+  font-display: swap;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style-type: none;
+}
+
+/* لینک‌ها: حذف زیرخط و ارث‌بری رنگ */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* لیست‌ها: حذف بولت */
+ul {
+  list-style-type: none;
+}
+
+/* دکمه و ورودی: استفاده از فونت والد و حذف استایل‌های پیش‌فرض */
+button,
+input {
+  font-family: inherit;
+  background: none;
+  border: none;
+  outline: none;
+  color: inherit;
+}
+
+/* دکمه‌ها: افکت انتقال نرم‌تر و آماده برای transform */
+button {
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+/* استایل دسترسی: نمایش فوکوس واضح برای کیبورد */
+:focus-visible {
+  outline: 3px solid rgba(255, 204, 0, 0.18);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.pagination-btn:focus-visible,
+a:focus-visible {
+  outline: 3px solid rgba(255, 204, 0, 0.18);
+  outline-offset: 3px;
+}
+
+/* =========================
+   هدر (HEADER): چینش و تم بصری
+   ========================= */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap);
+  padding: 0.9rem 1.5rem;
+  background: linear-gradient(
+    90deg,
+    rgba(51, 0, 102, 0.95),
+    rgba(63, 8, 120, 0.95)
+  );
+}
+
+.header .header-title {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .header .header-title {
+    display: none;
+  }
+}
+
+.header .search-form {
+  position: relative;
+}
+
+.header .search-input::placeholder {
+  color: #ccc;
+}
+
+.header .search-input {
+  background: #5433ca;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  color: #fff;
+  width: 250px;
+  padding-right: 2.1rem;
+}
+@media screen and (max-width: 768px) {
+  .header .search-form {
+    width: 100%;
+  }
+
+  .header .search-input {
+    width: 100%;
+  }
+}
+
+.header .submit-btn {
+  position: absolute;
+  right: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.condition-box {
+  margin: 2rem;
+}
+
+/* =========================
+   لیست فیلم‌ها: شبکه کارت‌ها (پاسخگو)
+   از auto-fill/minmax برای رفتار بهتر در ابعاد مختلف استفاده می‌کنیم
+   ========================= */
+.movies-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--gap);
+  margin: 2rem auto;
+  padding: 0 1rem;
+  max-width: 1200px;
+}
+
+@media screen and (max-width: 1300px) {
+  .movies-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 1060px) {
+  .movies-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .movies-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .movies-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+@media screen and (max-width: 440px) {
+  .movies-list {
+    margin: 1rem;
+  }
+}
+
+/* کارت فیلم: پس‌زمینه، شعاع گوشه و افکت hover */
+.movies-list .movie-item {
+  background: var(--card);
+  padding: 0.6rem;
+  border-radius: var(--radius);
+  position: relative;
+  transition: transform var(--transition), box-shadow var(--transition);
+  will-change: transform;
+}
+.movies-list .movie-item:hover,
+.movies-list .movie-item:focus-within {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+}
+
+/* overview box styles */
+.movies-list .movie-item .poster-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 7px;
+}
+
+.movies-list .movie-item .poster-wrapper .overview-box {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  backdrop-filter: blur(4px);
+  overflow: auto;
+  padding: 0.4rem;
+  transition: all 0.3s;
+  opacity: 0;
+  padding-top: 2.2rem;
+}
+
+.movies-list .movie-item:hover .poster-wrapper .overview-box {
+  opacity: 1;
+}
+
+.movies-list .movie-item .poster-wrapper .overview-title {
+  margin-bottom: 0.5rem;
+}
+
+.movies-list .movie-item .poster-wrapper .poster-img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--transition) ease;
+}
+.movies-list .movie-item:hover .poster-wrapper .poster-img {
+  transform: scale(1.03);
+}
+
+/* وقتی کاربر ترجیح می‌دهد حرکت کمتر باشد */
+@media (prefers-reduced-motion: reduce) {
+  .movies-list .movie-item,
+  .movies-list .movie-item:hover,
+  .card__image,
+  .card__title {
+    transition: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+.movies-list .movie-item .info-box {
+  padding: 0.2rem 0;
+  gap: 1rem;
+}
+
+.movies-list .movie-item .info-box .movie-name {
+  line-height: 1.5rem;
+}
+
+.movies-list .movie-item .info-box .movie-vote {
+  display: flex;
+  gap: 0.2rem;
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  background: #ffcc00;
+  color: #000;
+  border-radius: 40px;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
+.movies-list .movie-item .info-box .green-vote {
+  background: rgb(73, 185, 21);
+  color: #fff;
+}
+
+.movies-list .movie-item .info-box .orange-vote {
+  background: rgb(255, 157, 0);
+}
+
+.movies-list .movie-item .info-box .red-vote {
+  background: rgb(185, 21, 21);
+  color: #fff;
+}
+
+/* pagintation styles */
+.pagination-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 4rem 0;
+}
+
+.pagination-box .pagination-btn {
+  color: #eee;
+  font-size: 1rem;
+}
+.pagination-box .pagination-btn.disable-btn {
+  color: #999;
+}
+
+.pagination-box .current-page {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 2px solid #ffcc00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* skeleton */
+.loading-box {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  margin: 2rem;
+}
+
+@media screen and (max-width: 1300px) {
+  .loading-box {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 1060px) {
+  .loading-box {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .condition-box {
+    margin: 2rem 1rem;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .loading-box {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .loading-box {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.card {
+  background: #050421;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card__content {
+  padding: 20px;
+}
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+.card__image,
+.card__title {
+  background: linear-gradient(110deg, #213243 8%, #24384a 18%, #213243 33%);
+  border-radius: 5px;
+  background-size: 200% 100%;
+  animation: 1s shine linear infinite;
+}
+
+.card__image {
+  height: 240px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.card__content {
+  padding: 20px;
+}
+
+.card__title {
+  height: 30px;
+}
+
+/* =========================
+   UI Polish overrides — header, controls, pagination, badges, overlay
+   Enhances visual hierarchy, interactions and readability
+   ========================= */
+.header .header-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  background: linear-gradient(
+    90deg,
+    var(--accent) 0%,
+    #ffd94d 40%,
+    rgba(255, 255, 255, 0.12) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.header .search-input {
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+.header .search-input:focus {
+  box-shadow: 0 8px 28px rgba(127, 51, 202, 0.14),
+    0 0 0 4px rgba(255, 204, 0, 0.04);
+  outline: none;
+}
+
+.header .submit-btn {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  padding: 0.45rem 0.6rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+.header .submit-btn:hover {
+  transform: translateY(-2px);
+}
+
+.pagination-btn {
+  background: transparent;
+  color: var(--text);
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transition: background var(--transition), transform var(--transition);
+}
+.pagination-btn:hover:not(.disable-btn) {
+  background: rgba(255, 255, 255, 0.04);
+  transform: translateY(-2px);
+}
+.pagination-btn.disable-btn {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.movies-list .movie-item .info-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+.movies-list .movie-item .info-box .movie-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.movies-list .movie-item .info-box .movie-vote {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.35rem 0.55rem;
+  font-weight: 700;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+}
+
+/* smoother overlay: slide + fade */
+.movies-list .movie-item .poster-wrapper .overview-box {
+  opacity: 0;
+  transform: translateY(8%);
+  transition: opacity var(--transition), transform var(--transition);
+}
+.movies-list .movie-item:hover .poster-wrapper .overview-box,
+.movies-list .movie-item:focus-within .poster-wrapper .overview-box {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* subtle active feedback */
+.movies-list .movie-item:active {
+  transform: translateY(-2px) scale(0.998);
+}
+
+/* small helper: hide any debug/footer placeholder if present */
+.footer-note {
+  display: none;
+}
+
+/* End UI polish */
