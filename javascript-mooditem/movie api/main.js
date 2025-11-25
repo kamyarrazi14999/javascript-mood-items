@@ -122,6 +122,7 @@ searchForm.addEventListener("submit", (e) => {
     searchinPut.value = "";
   }
 });
+// next page button event listener
 nextBtn.addEventListener("click", () => {
   nextPage = currentPage + 1;  
   if (nextPage <= totalPages) {
@@ -129,6 +130,7 @@ nextBtn.addEventListener("click", () => {
   }
 
 });
+// call page function  to handle pagination  if nextPage exists
 const callpage = (page) => {
  
 }
