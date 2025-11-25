@@ -7,10 +7,15 @@ const searchinPut = document.querySelector(".search-input");
 const warningtExt = document.querySelector(".warning-text");
 const paginationBox = document.querySelector(".pagination-box");
 const hedaerTitle = document.querySelector(".header-title");
+const nextBtn = document.getElementById("next-page-btn");
+// current page number , 
+let currentPage = 1;
+let nextPage = null;
+let totalPages = null;
 
 // API DATA
 const API_KEY = "a0a41ae00c6d0cbf35cbf9738285b0a0";
-const API_URL = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${API_KEY}`;
+const API_URL = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${API_KEY}&page=${currentPage}`;
 // address path for images
 const IMAGE_PATH = "https://image.tmdb.org/t/p/w500";
 const SERCH_API = `https://api.themoviedb.org/3/search/movie?&api_key=${API_KEY}&query=`;
@@ -30,6 +35,8 @@ const getMovies = async (url) => {
     warningtExt.innerHTML = "";
     showMovies(data.results);
     paginationBox.style.display = "flex";
+    currentPage = data.page;
+    totalPages = data.total_pages;
   } catch (error) {
     loadingBox.style.display = "none";
     errorText.textContent = `خطا: ${error.message}`;
@@ -107,13 +114,23 @@ const getclassByvote = (vote) => {
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const searchTerm = searchinPut.value;
-    if (searchTerm) {
+  if (searchTerm) {
     //   activate loading box
-      loadingBox.style.display = "grid";
-      moviesList.innerHTML = "";
+    loadingBox.style.display = "grid";
+    moviesList.innerHTML = "";
     getMovies(SERCH_API + searchTerm);
     searchinPut.value = "";
   }
 });
+nextBtn.addEventListener("click", () => {
+  nextPage = currentPage + 1;  
+  if (nextPage <= totalPages) {
+    callpage(nextPage);
+  }
+
+});
+const callpage = (page) => {
+ 
+}
 // initialize the API call
 getMovies(API_URL);
