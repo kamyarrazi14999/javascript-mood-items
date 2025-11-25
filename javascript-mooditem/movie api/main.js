@@ -2,18 +2,20 @@
 const loadingBox = document.querySelector(".loading-box");
 const moviesList = document.querySelector(".movies-list");
 const errorText = document.querySelector(".error-text");
+const searchForm = document.querySelector("#search-form");
 
 // API DATA
 const API_KEY = "a0a41ae00c6d0cbf35cbf9738285b0a0";
 const API_URL = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${API_KEY}`;
+// address path for images
 const IMAGE_PATH = "https://image.tmdb.org/t/p/w500";
+const SERCH_API = `https://api.themoviedb.org/3/search/movie?&api_key=${API_KEY}&query=`;
 
 // Get Movies From API
 const getMovies = async () => {
     try {
         const response = await fetch(API_URL);
-        
-        // بررسی وضعیت پاسخ
+        // response ok or no 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -28,7 +30,7 @@ const getMovies = async () => {
         console.error("Error fetching movies:", error);
     }
 };
-
+// item template for movies list display 
 const showMovies = (movies) => { 
     moviesList.innerHTML = "";
     if (movies.length !== 0) {
@@ -37,7 +39,7 @@ const showMovies = (movies) => {
             
             // بررسی اینکه poster_path موجود است
             if (!poster_path) return;
-            
+            // movie item template 
             const movieItem = `
                 <div class='movie-item'>
                     <div class='poster-wrapper'>
@@ -53,7 +55,7 @@ const showMovies = (movies) => {
                     </div>
                     <div class='info-box'>
                         <h4 class='movie-name'>${title}</h4>
-                        <span class='movie-vote'>
+                        <span class='movie-vote' class='${getclassByvote(vote_average)}'>
                             ${vote_average}
                             <i class='fa fa-star'></i>
                         </span>
@@ -66,6 +68,20 @@ const showMovies = (movies) => {
         errorText.textContent = "فیلمی یافت نشد!";
     }
 };
-
+// give dynamic class to vote rating
+const getclassByvote = (vote) => {
+    if (vote > 8) {
+        return "green-vote";
+    } else if (vote >= 5) {
+        return "orange-vote";
+    } else {
+        return "red-vote";
+    }
+};
+// search form event listener
+searchForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const searchTerm = e.target.search.value;
+});
 // initialize the API call
 getMovies();
