@@ -2,7 +2,8 @@
 const loadingBox = document.querySelector(".loading-box");
 const moviesList = document.querySelector(".movies-list");
 const errorText = document.querySelector(".error-text");
-const searchForm = document.querySelector("#search-form");
+const searchForm = document.querySelector(".search-form");
+const searchinPut =document.querySelector( ".search-input")
 
 // API DATA
 const API_KEY = "a0a41ae00c6d0cbf35cbf9738285b0a0";
@@ -12,9 +13,9 @@ const IMAGE_PATH = "https://image.tmdb.org/t/p/w500";
 const SERCH_API = `https://api.themoviedb.org/3/search/movie?&api_key=${API_KEY}&query=`;
 
 // Get Movies From API
-const getMovies = async () => {
+const getMovies = async (url) => {
     try {
-        const response = await fetch(API_URL);
+        const response = await fetch(url);
         // response ok or no 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -81,7 +82,12 @@ const getclassByvote = (vote) => {
 // search form event listener
 searchForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const searchTerm = e.target.search.value;
+    const searchTerm = searchinPut.value;
+    if (searchTerm) {
+        
+    }
+
+    
 });
 // initialize the API call
-getMovies();
+getMovies(API_URL);
