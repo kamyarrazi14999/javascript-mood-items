@@ -8,7 +8,7 @@ const warningtExt = document.querySelector(".warning-text");
 const paginationBox = document.querySelector(".pagination-box");
 const hedaerTitle = document.querySelector(".header-title");
 const nextBtn = document.getElementById("next-page-btn");
-// current page number , 
+// current page number ,
 let currentPage = 1;
 let nextPage = null;
 let totalPages = null;
@@ -124,19 +124,18 @@ searchForm.addEventListener("submit", (e) => {
 });
 // next page button event listener
 nextBtn.addEventListener("click", () => {
-  nextPage = currentPage + 1;  
+  nextPage = currentPage + 1;
   if (nextPage <= totalPages) {
     callpage(nextPage);
   }
-
 });
 // call page function  to handle pagination  if nextPage exists
 const callpage = (page) => {
   const urlsplit = API_URL.split("?");
-  const searchParams = new URLSearchParams(urlsplit[1]); 
-  console.log(searchParams);
-  
- 
-}
+  const searchParams = new URLSearchParams(urlsplit[1]);
+  searchParams.set("page", page);
+  const newURL = urlsplit[0] + "?" + searchParams.toString();
+  getMovies(newURL);
+};
 // initialize the API call
 getMovies(API_URL);
