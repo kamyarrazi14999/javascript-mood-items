@@ -107,8 +107,10 @@ const getclassByvote = (vote) => {
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const searchTerm = searchinPut.value;
-  if (searchTerm) {
-    loadingBox.style.display = "grid";
+    if (searchTerm) {
+    //   activate loading box
+      loadingBox.style.display = "grid";
+      moviesList.innerHTML = "";
     getMovies(SERCH_API + searchTerm);
     searchinPut.value = "";
   }
