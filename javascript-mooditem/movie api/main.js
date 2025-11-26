@@ -8,9 +8,12 @@ const warningtExt = document.querySelector(".warning-text");
 const paginationBox = document.querySelector(".pagination-box");
 const hedaerTitle = document.querySelector(".header-title");
 const nextBtn = document.getElementById("next-page-btn");
+const prevBtn = document.getElementById("prev-page-btn");
+const currentPageText = document.querySelector(".current-page");
 // current page number ,
 let currentPage = 1;
 let nextPage = null;
+let prevPage = null;
 let totalPages = null;
 
 // API DATA
@@ -37,6 +40,8 @@ const getMovies = async (url) => {
     paginationBox.style.display = "flex";
     currentPage = data.page;
     totalPages = data.total_pages;
+    currentPageText.innerHTML = currentPage;
+    
   } catch (error) {
     loadingBox.style.display = "none";
     errorText.textContent = `خطا: ${error.message}`;
@@ -127,6 +132,13 @@ nextBtn.addEventListener("click", () => {
   nextPage = currentPage + 1;
   if (nextPage <= totalPages) {
     callpage(nextPage);
+  }
+});
+// previous page button event listener
+prevBtn.addEventListener("click", () => {
+  prevPage = currentPage - 1;
+  if (prevPage >= 1) {
+    callpage(prevPage);
   }
 });
 // call page function  to handle pagination  if nextPage exists
