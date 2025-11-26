@@ -71,19 +71,20 @@ const showMovies = (movies) => {
 };
 // give dynamic class to vote rating
 const getclassByvote = (vote) => {
-    if (vote > 8) {
-        return "green-vote";
-    } else if (vote >= 5) {
-        return "orange-vote";
-    } else {
-        return "red-vote";
-    }
+  if (vote >= 8) {
+    return "green-vote";
+  } else if (vote <= 5) {
+    return "red-vote";
+  } else {
+    return "orange-vote";
+  }
 };
 // search form event listener
 searchForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const searchTerm = searchinPut.value;
     if (searchTerm) {
+        getMovies(SERCH_API + searchTerm);
         
     }
 
