@@ -132,6 +132,10 @@ nextBtn.addEventListener("click", () => {
 });
 // call page function  to handle pagination  if nextPage exists
 const callpage = (page) => {
+  const urlsplit = API_URL.split("?");
+  const searchParams = new URLSearchParams(urlsplit[1]); 
+  console.log(searchParams);
+  
  
 }
 // initialize the API call
