@@ -4,6 +4,8 @@ const moviesList = document.querySelector(".movies-list");
 const errorText = document.querySelector(".error-text");
 const searchForm = document.querySelector(".search-form");
 const searchinPut =document.querySelector( ".search-input")
+const warningtExt = document.querySelector(".warning-text");
+paginationBox = document.querySelector(".pagination-box");
 
 // API DATA
 const API_KEY = "a0a41ae00c6d0cbf35cbf9738285b0a0";
@@ -24,18 +26,23 @@ const getMovies = async (url) => {
         const data = await response.json();
         loadingBox.style.display = "none";
         errorText.textContent = "";
+        warningtExt.innerHTML = '';
         showMovies(data.results);
+        paginationBox.style.display = "flex";
     } catch (error) {
         loadingBox.style.display = "none";
         errorText.textContent = `خطا: ${error.message}`;
         console.error("Error fetching movies:", error);
+        paginationBox.style.display = "none";
     }
 };
 // item template for movies list display 
 const showMovies = (movies) => { 
     moviesList.innerHTML = "";
-    if (movies.length !== 0) {
-        movies.forEach((movie) => {
+    const filTeredMovies = movies.filter(movie => movie.poster_path!== null);
+   
+    if (filTeredMovies.length !== 0) {
+        filTeredMovies.forEach((movie) => {
             const { title, poster_path, vote_average, overview } = movie;
             
             // بررسی اینکه poster_path موجود است
@@ -66,7 +73,17 @@ const showMovies = (movies) => {
             moviesList.innerHTML += movieItem;
         });
     } else {
-        errorText.textContent = "فیلمی یافت نشد!";
+        //    show alert using sweetalert2
+        if (warningtExt.style.display !== "none") {
+            paginationBox.style.display = "none";
+            swal.fire({
+                icon: 'warning',
+                title: 'No results found',
+                text: 'Please try a different search term.',
+                confirmButtonText: 'OK'
+            });
+        }
+        
     }
 };
 // give dynamic class to vote rating
@@ -82,9 +99,10 @@ const getclassByvote = (vote) => {
 // search form event listener
 searchForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const searchTerm = searchinPut.value;
+    const searchTerm =  searchinPut.value;
     if (searchTerm) {
         getMovies(SERCH_API + searchTerm);
+        searchinPut.value = "";
         
     }
 
