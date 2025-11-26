@@ -5,7 +5,8 @@ const errorText = document.querySelector(".error-text");
 const searchForm = document.querySelector(".search-form");
 const searchinPut = document.querySelector(".search-input");
 const warningtExt = document.querySelector(".warning-text");
-paginationBox = document.querySelector(".pagination-box");
+const paginationBox = document.querySelector(".pagination-box");
+const hedaerTitle = document.querySelector(".header-title");
 
 // API DATA
 const API_KEY = "a0a41ae00c6d0cbf35cbf9738285b0a0";
@@ -87,6 +88,11 @@ const showMovies = (movies) => {
     }
   }
 };
+// reset to popular movies on header title click
+hedaerTitle.addEventListener("click", () => {
+  getMovies(API_URL);
+});
+
 // give dynamic class to vote rating
 const getclassByvote = (vote) => {
   if (vote >= 8) {
