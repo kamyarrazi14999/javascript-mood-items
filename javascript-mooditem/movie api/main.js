@@ -56,7 +56,7 @@ const showMovies = (movies) => {
                     </div>
                     <div class='info-box'>
                         <h4 class='movie-name'>${title}</h4>
-                        <span class='movie-vote' class='${getclassByvote(vote_average)}'>
+                        <span class='movie-vote ${getclassByvote(vote_average)}'>
                             ${vote_average}
                             <i class='fa fa-star'></i>
                         </span>
