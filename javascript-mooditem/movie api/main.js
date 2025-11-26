@@ -108,6 +108,7 @@ searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const searchTerm = searchinPut.value;
   if (searchTerm) {
+    loadingBox.style.display = "grid";
     getMovies(SERCH_API + searchTerm);
     searchinPut.value = "";
   }
