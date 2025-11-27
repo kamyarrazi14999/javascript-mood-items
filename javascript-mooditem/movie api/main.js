@@ -15,6 +15,7 @@ let currentPage = 1;
 let nextPage = null;
 let prevPage = null;
 let totalPages = null;
+let lestURL = "";
 
 // API DATA
 const API_KEY = "a0a41ae00c6d0cbf35cbf9738285b0a0";
@@ -25,6 +26,7 @@ const SERCH_API = `https://api.themoviedb.org/3/search/movie?&api_key=${API_KEY}
 
 // Get Movies From API
 const getMovies = async (url) => {
+  lestURL = url;
   try {
     const response = await fetch(url);
     // response ok or no
@@ -38,9 +40,25 @@ const getMovies = async (url) => {
     warningtExt.innerHTML = "";
     showMovies(data.results);
     paginationBox.style.display = "flex";
+    // update current , total pages
     currentPage = data.page;
     totalPages = data.total_pages;
     currentPageText.innerHTML = currentPage;
+    // scroll to top on new data load
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    // update buttons state page buttons
+    if (currentPage <= 1) {
+      prevBtn.classList.add("disable-btn");
+      nextBtn.classList.remove("disable-btn");
+    }
+    else if (currentPage >= totalPages) {
+      nextBtn.classList.add("disable-btn");
+      prevBtn.classList.remove("disable-btn");
+    }
+    else {
+      nextBtn.classList.remove("disable-btn");
+      prevBtn.classList.remove("disable-btn");
+    }
     
   } catch (error) {
     loadingBox.style.display = "none";
@@ -143,7 +161,9 @@ prevBtn.addEventListener("click", () => {
 });
 // call page function  to handle pagination  if nextPage exists
 const callpage = (page) => {
-  const urlsplit = API_URL.split("?");
+      loadingBox.style.display = "grid";
+    moviesList.innerHTML = "";
+  const urlsplit = lestURL.split("?");
   const searchParams = new URLSearchParams(urlsplit[1]);
   searchParams.set("page", page);
   const newURL = urlsplit[0] + "?" + searchParams.toString();
