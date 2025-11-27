@@ -50,16 +50,13 @@ const getMovies = async (url) => {
     if (currentPage <= 1) {
       prevBtn.classList.add("disable-btn");
       nextBtn.classList.remove("disable-btn");
-    }
-    else if (currentPage >= totalPages) {
+    } else if (currentPage >= totalPages) {
       nextBtn.classList.add("disable-btn");
       prevBtn.classList.remove("disable-btn");
-    }
-    else {
+    } else {
       nextBtn.classList.remove("disable-btn");
       prevBtn.classList.remove("disable-btn");
     }
-    
   } catch (error) {
     loadingBox.style.display = "none";
     errorText.textContent = `خطا: ${error.message}`;
@@ -161,8 +158,8 @@ prevBtn.addEventListener("click", () => {
 });
 // call page function  to handle pagination  if nextPage exists
 const callpage = (page) => {
-      loadingBox.style.display = "grid";
-    moviesList.innerHTML = "";
+  loadingBox.style.display = "grid";
+  moviesList.innerHTML = "";
   const urlsplit = lestURL.split("?");
   const searchParams = new URLSearchParams(urlsplit[1]);
   searchParams.set("page", page);
