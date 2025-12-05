@@ -5,6 +5,7 @@ const photosListContainer = document.getElementById("image-list-container");
 // aPI DATA
 const API_KEY = "guyzoV7LTTyH63GnYE15V57E07YLVArXfqiOWgN7ZOw";
 const API_URl = `https://api.unsplash.com/photos?page=1&client_id=${API_KEY}`;
+const API_SEARCH_URL = `https://api.unsplash.com/search/photos?client_id=${API_KEY}&query=`;
 
 // Fetch Images From Unsplash API\
 const getImages = async (url) => {
