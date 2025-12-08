@@ -2,6 +2,7 @@
 const loadingBox = document.querySelector(".loading-img");
 const photosListContainer = document.getElementById("image-list-container");
 const searchInput = document.querySelector(".search-input");
+const searchButton = document.querySelector(".search-btn");
 
 // aPI DATA
 const API_KEY = "guyzoV7LTTyH63GnYE15V57E07YLVArXfqiOWgN7ZOw";
@@ -16,16 +17,20 @@ const getImages = async (url) => {
     showImages(data);
     loadingBox.style.display = "none";
   } catch (error) {
-    photosListContainer.innerHTML = `h2 class='error-message'>${error.message}</h2>`;
+    photosListContainer.innerHTML = `<h2 class='error-message'>${error.message}</h2>`;
     loadingBox.style.display = "none";
   }
 };
 // Search Images
-searchInput.addEventListener("keyup", (e) => {
-
-  if (e.target.value !== "") {
-    getImages(API_SEARCH_URL + e.target.value);
+searchButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  const searchvalue = searchInput.value;
+  if (searchvalue) {
+    // activate loading box
+    getImages(API_SEARCH_URL + searchvalue);
+    searchInput.value = "";
   }
+  
 });
 // item show template for images list display
 const showImages = (photos) => {
