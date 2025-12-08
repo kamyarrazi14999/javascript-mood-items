@@ -3,6 +3,7 @@ const loadingBox = document.querySelector(".loading-img");
 const photosListContainer = document.getElementById("image-list-container");
 const searchInput = document.querySelector(".search-input");
 const searchButton = document.querySelector(".search-btn");
+const notFound = document.querySelector(".not-found-img");
 
 // aPI DATA
 const API_KEY = "guyzoV7LTTyH63GnYE15V57E07YLVArXfqiOWgN7ZOw";
@@ -14,8 +15,14 @@ const getImages = async (url) => {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    showImages(data);
-    loadingBox.style.display = "none";
+    if (data.results) {
+      showImages(data.results);
+      
+    }  else {
+      
+      showImages(data);
+    } 
+
   } catch (error) {
     photosListContainer.innerHTML = `<h2 class='error-message'>${error.message}</h2>`;
     loadingBox.style.display = "none";
@@ -27,18 +34,21 @@ searchButton.addEventListener("click", (e) => {
   const searchvalue = searchInput.value;
   if (searchvalue) {
     // activate loading box
+    photosListContainer.innerHTML = "";
+    loadingBox.style.display = "block";
     getImages(API_SEARCH_URL + searchvalue);
-    searchInput.value = "";
+    
   }
   
 });
 // item show template for images list display
+
 const showImages = (photos) => {
   photosListContainer.innerHTML = "";
-
-  photos.forEach((photo) => {
-    const { urls } = photo;
-    const image = `
+  if (photos.length ) {
+    photos.forEach((photo) => {
+      const { urls } = photo;
+      const image = `
       <div class="image-item">
         <img src="${urls.regular}" alt="Image"
         class="image" 
@@ -47,9 +57,14 @@ const showImages = (photos) => {
 
   </div>
     `;
-    photosListContainer.innerHTML += image;
-  });
-};
+      photosListContainer.innerHTML += image;
+    });
 
+  } else {
+    notFound.style.display = "block";
+    loadingBox.style.display = "none";
+
+   }
+}
 // Show Images
 getImages(API_URl);
