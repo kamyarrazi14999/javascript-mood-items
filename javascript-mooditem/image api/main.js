@@ -15,6 +15,8 @@ const getImages = async (url) => {
   try {
     const response = await fetch(url);
     const data = await response.json();
+    loadingBox.style.display = "none";
+    loadingBox.style.display = "none";
     if (data.results) {
       showImages(data.results);
       
@@ -36,7 +38,9 @@ searchButton.addEventListener("click", (e) => {
     // activate loading box
     photosListContainer.innerHTML = "";
     loadingBox.style.display = "block";
+    notFound.style.display = "none";
     getImages(API_SEARCH_URL + searchvalue);
+    searchInput.value = "";
     
   }
   
