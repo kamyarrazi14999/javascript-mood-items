@@ -70,15 +70,24 @@ const showImages = (photos) => {
     pagination.style.display = "none";
   }
 };
-// Pagination Functionality
+// Pagination item show template for pagination display
 pageButton.forEach((btn) => {
   btn.addEventListener("click", (e) => {
     e.preventDefault();
     pageButton.forEach((btn) => btn.classList.remove("active"));
     btn.classList.add("active");
+    // get page & call function
     const buttonpage = btn.dataset.page;
     callpage(buttonpage);
   });
 });
+// Pagination function
+const callpage = (page) => {
+ const urlsplit = API_URl.split("?page=");
+  const searchParams = new URLSearchParams(urlsplit[1]);
+  searchParams.set("page", page);
+  console.log(searchParams.toString());
+  
+};
 // Show Images
 getImages(API_URl);
