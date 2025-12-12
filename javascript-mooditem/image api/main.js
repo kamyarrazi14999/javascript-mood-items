@@ -10,13 +10,16 @@ const prevButton = document.querySelector(".prev-btn");
 
 // VARIABLES
 let currentPage = 1;
+let lastURL = null;
 // aPI DATA
 const API_KEY = "guyzoV7LTTyH63GnYE15V57E07YLVArXfqiOWgN7ZOw";
 const API_URl = `https://api.unsplash.com/photos?page=${currentPage}&client_id=${API_KEY}`;
-const API_SEARCH_URL = `https://api.unsplash.com/search/photos?page = 1&client_id=${API_KEY}&query=`;
+const API_SEARCH_URL = `https://api.unsplash.com/search/photos?page =${currentPage}&client_id=${API_KEY}&query=`;
 
 // Fetch Images From Unsplash API\
 const getImages = async (url) => {
+  // update current page
+  lastURL = url;
   try {
     const response = await fetch(url);
     const data = await response.json();
@@ -27,6 +30,7 @@ const getImages = async (url) => {
     } else {
       showImages(data);
     }
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   } catch (error) {
     photosListContainer.innerHTML = `<h2 class='error-message'>${error.message}</h2>`;
     loadingBox.style.display = "none";
@@ -42,6 +46,9 @@ searchButton.addEventListener("click", (e) => {
     loadingBox.style.display = "block";
     notFound.style.display = "none";
     pagination.style.display = "none";
+    // active frast page button
+    pageButton.forEach((btn) => btn.classList.remove("active"));
+    document.querySelector("[data-page='1']").classList.add("active");
     getImages(API_SEARCH_URL + searchvalue);
     searchInput.value = "";
   }
@@ -83,11 +90,12 @@ pageButton.forEach((btn) => {
 });
 // Pagination function
 const callpage = (page) => {
- const urlsplit = API_URl.split("?page=");
+  const urlsplit = lastURL.split("?");
   const searchParams = new URLSearchParams(urlsplit[1]);
   searchParams.set("page", page);
-  console.log(searchParams.toString());
-  
+  const url = urlsplit[0] + "?" + searchParams.toString();
+  console.log(url);
+  getImages(url);
 };
 // Show Images
 getImages(API_URl);
