@@ -1,30 +1,56 @@
 // ELEMENTS SELECTION
 const cityInput = document.getElementById("city-input");
 const weatherInfo = document.querySelector(".weather-form");
-eroreMassage = document.querySelector(".error-message");
-
+const eroreMassage = document.querySelector(".error-message");
+const searchBox = document.querySelector(".search-box");
+const searchBoxContainer = document.getElementById("search-box-container");
+const resultBoxContainer = document.getElementById("result-container");
+const backButton = document.querySelector(".back-btn");
 // API DATA
 const API_KEY = "f235a7d1451b2be4b94e8ad0ce5fb084";
 const API_URL = `https://api.openweathermap.org/data/2.5/weather?appid=${API_KEY}&q=`;
+// form submit event
 weatherInfo.addEventListener("submit", (e) => {
   e.preventDefault();
   if (cityInput.value) {
     getWeater(API_URL + cityInput.value);
   }
 });
-const getWeater = async (url) => {
+// get weather data from API
+const getWeater = (url) => {
+  eroreMassage.style.display = "none";
+  searchBox.classList.add("loading");
   fetch(url)
     .then((res) => res.json())
     .then((data) => {
+      // if city not found or API error occurred then display error message and return from function.
       if (data.cod === "404") {
-        eroreMassage.style.display = "block"; // show error message
-        eroreMassage.textContent = data.message;
+        displayError(data.message);
+      } else {
+        searchBoxContainer.style.display = "none";
+        resultBoxContainer.style.display = "block";
+        backButton.style.display = "block";
+        showWeather(data);
       }
-      else { 
-        eroreMassage.style.display = "none"; // hide error message
-        eroreMassage.textContent = "";
-        cityInput.value = "";
-      }
-
+    })
+    .catch((error) => {
+      displayError("An error occurred while fetching the data.");
+    })
+    .finally(() => {
+      searchBox.classList.remove("loading");
     });
+};
+// function to back to previous section
+backButton.addEventListener("click", () => {
+  searchBoxContainer.style.display = "block";
+  resultBoxContainer.style.display = "none";
+  backButton.style.display = "none";
+  cityInput.value = "";
+});
+// show weather info
+const showWeather = (data) => {};
+// item display error message
+const displayError = (error) => {
+  eroreMassage.style.display = "block";
+  eroreMassage.textContent = error;
 };
