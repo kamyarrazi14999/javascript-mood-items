@@ -6,6 +6,7 @@ const searchBox = document.querySelector(".search-box");
 const searchBoxContainer = document.getElementById("search-box-container");
 const resultBoxContainer = document.getElementById("result-container");
 const backButton = document.querySelector(".back-btn");
+const weatherIcon = document.querySelector(".weather-icon");
 // API DATA
 const API_KEY = "f235a7d1451b2be4b94e8ad0ce5fb084";
 const API_URL = `https://api.openweathermap.org/data/2.5/weather?appid=${API_KEY}&q=`;
@@ -48,7 +49,26 @@ backButton.addEventListener("click", () => {
   cityInput.value = "";
 });
 // show weather info
-const showWeather = (data) => {};
+const showWeather = (data) => {
+  // show feels like, humidity, temperature and weather description
+  const [feels_like, humidity, temp] = data.main;
+  const [id, description] = data.weather[0];
+  if (id === 800) {
+    weatherIcon.src = "./assets/suny.png";
+  } 
+  
+};
+// set input direction based on language
+cityInput.addEventListener("input", () => {
+  const inputDirection = isPersian(cityInput.value) ? "rtl" : "ltr";
+
+  cityInput.style.direction = inputDirection;
+});
+// check if text is in Persian language
+const isPersian = (text) => {
+  const persianRegex = /[\u0600-\u06FF\u0750-\u077F]/;
+  return persianRegex.test(text);
+};
 // item display error message
 const displayError = (error) => {
   eroreMassage.style.display = "block";
