@@ -51,11 +51,21 @@ backButton.addEventListener("click", () => {
 // show weather info
 const showWeather = (data) => {
   // show feels like, humidity, temperature and weather description
-  const [feels_like, humidity, temp] = data.main;
-  const [id, description] = data.weather[0];
-  if (id === 800) {
+  const { feels_like, humidity, temp } = data.main;
+  const { id, description } = data.weather[0];
+  if (id == 800) {
     weatherIcon.src = "./assets/suny.png";
-  } 
+  } else if (id >= 801 && id <= 804) {
+    weatherIcon.src = "./assets/cloudy.png";
+  } else if (id >= 701 && id <= 781) {
+    weatherIcon.src = "./assets/windy.png";
+  } else if ((id >= 500 && id <= 531) || (id >= 300 && id <= 321)) {
+    weatherIcon.src = "./assets/rainy.png";
+  } else if (id >= 600 && id <= 622) {
+    weatherIcon.src = "./assets/snowy.png";
+  } else if (id >= 200 && id <= 232) {
+    weatherIcon.src = "./assets/thunder-stormy.png";
+  }
   
 };
 // set input direction based on language
