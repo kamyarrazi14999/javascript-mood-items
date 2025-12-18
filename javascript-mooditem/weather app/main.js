@@ -7,6 +7,12 @@ const searchBoxContainer = document.getElementById("search-box-container");
 const resultBoxContainer = document.getElementById("result-container");
 const backButton = document.querySelector(".back-btn");
 const weatherIcon = document.querySelector(".weather-icon");
+const temperAture = document.querySelector(".temperature-text");
+const humiDity = document.querySelector(".humidity-text");
+const City = document.querySelector(".city-text");
+const desCription = document.querySelector(".description-text");
+const feelsLike = document.querySelector(".feels-like-text");
+
 // API DATA
 const API_KEY = "f235a7d1451b2be4b94e8ad0ce5fb084";
 const API_URL = `https://api.openweathermap.org/data/2.5/weather?appid=${API_KEY}&q=`;
@@ -66,7 +72,9 @@ const showWeather = (data) => {
   } else if (id >= 200 && id <= 232) {
     weatherIcon.src = "./assets/thunder-stormy.png";
   }
-  
+  temperAture.innerHTML = `${Math.round(temp - 273.15)}&deg;C`;
+  desCription.innerHTML = description;
+ 
 };
 // set input direction based on language
 cityInput.addEventListener("input", () => {

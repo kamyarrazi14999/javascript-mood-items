@@ -7,7 +7,11 @@ const notFound = document.querySelector(".not-found-img");
 const pagination = document.querySelector(".pagination");
 const pageButton = document.querySelectorAll(".page-btn");
 const prevButton = document.querySelector(".prev-btn");
-
+ 
+ 
+ 
+ 
+ 
 // VARIABLES
 let currentPage = 1;
 let lastURL = null;
