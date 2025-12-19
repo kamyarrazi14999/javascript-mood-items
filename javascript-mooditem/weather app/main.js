@@ -8,10 +8,11 @@ const resultBoxContainer = document.getElementById("result-container");
 const backButton = document.querySelector(".back-btn");
 const weatherIcon = document.querySelector(".weather-icon");
 const temperAture = document.querySelector(".temperature-text");
-const humiDity = document.querySelector(".humidity-text");
+const humiDity = document.querySelector(".humadity-text");
 const City = document.querySelector(".city-text");
 const desCription = document.querySelector(".description-text");
 const feelsLike = document.querySelector(".feels-like-text");
+const loCtion = document.querySelector(".device-loc-btn");
 
 // API DATA
 const API_KEY = "f235a7d1451b2be4b94e8ad0ce5fb084";
@@ -72,9 +73,12 @@ const showWeather = (data) => {
   } else if (id >= 200 && id <= 232) {
     weatherIcon.src = "./assets/thunder-stormy.png";
   }
+  // item show feels like, humidity, temperature and weather description
   temperAture.innerHTML = `${Math.round(temp - 273.15)}&deg;C`;
   desCription.innerHTML = description;
- 
+  City.innerHTML = `${data.name}, ${data.sys.country}`;
+  feelsLike.innerHTML = ` ${Math.round(feels_like - 273.15)}&deg;C`;
+  humiDity.innerHTML = ` ${humidity}%`;
 };
 // set input direction based on language
 cityInput.addEventListener("input", () => {
@@ -87,8 +91,34 @@ const isPersian = (text) => {
   const persianRegex = /[\u0600-\u06FF\u0750-\u077F]/;
   return persianRegex.test(text);
 };
+
+
 // item display error message
 const displayError = (error) => {
   eroreMassage.style.display = "block";
   eroreMassage.textContent = error;
 };
+
+// get current location weather data
+loCtion.addEventListener("click", () => { 
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(onesuccess, onerror);
+  } 
+  
+   
+   else {
+    alert("Geolocation is not supported by this browser.");
+  }
+
+});
+// get coordinates of current location
+const onsuccess = (position) => {
+  // discard the previous search results
+  cityInput.value = "";
+  const { latitude, longitude } = position.coords;
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`;
+  getWeater(url);
+};
+const onerror = () => {
+  displayError("Unable to retrieve your location. Please try again later.");
+}
